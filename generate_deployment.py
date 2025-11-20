@@ -26,7 +26,7 @@ def render_deployment(name: str, labels: Optional[str], replicas: int, envs: Opt
 def main():
     parser = argparse.ArgumentParser(description="Generate Kubernetes Deployment manifest.")
     parser.add_argument('--name', required=True, help='Deployment and container name')
-    parser.add_argument('--labels', help='Comma-separated labels, e.g. key1=val1,key2=val2')
+    parser.add_argument('--labels', help='Labels filed')
     parser.add_argument('--replicas', type=int, help='Number of replicas (default: 3)')
     parser.add_argument('--envs', help='Comma-separated envs, e.g. ENV1=val1,ENV2=val2')
     args = parser.parse_args()

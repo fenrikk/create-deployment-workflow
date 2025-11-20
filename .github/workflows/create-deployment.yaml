@@ -29,5 +29,29 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Hello world
-        run: echo "Hello world"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate Deployment YAML
+        id: generate
+        run: |
+          python generate_deployment.py \
+            --name "${{ github.event.inputs.name }}" \
+            ${{ github.event.inputs.labels && format('--labels "{0}"', github.event.inputs.labels) || '' }} \
+            ${{ github.event.inputs.replicas && format('--replicas {0}', github.event.inputs.replicas) || '' }} \
+            ${{ github.event.inputs.envs && format('--envs "{0}"', github.event.inputs.envs) || '' }} \
+            > deployment.yaml
+          cat deployment.yaml
+
+      - name: Add Deployment YAML to summary
+        run: |
+          echo '### Generated Deployment YAML' >> $GITHUB_STEP_SUMMARY
+          echo '\n' >> $GITHUB_STEP_SUMMARY
+          cat deployment.yaml >> $GITHUB_STEP_SUMMARY
