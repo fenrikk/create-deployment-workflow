@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ name }}
+{% if labels %}  labels: {{ labels }}
+{% endif %}spec:
+  replicas: {{ replicas }}
+  selector:
+    matchLabels:
+      app: {{ name }}
+  template:
+    metadata:
+      labels:
+        app: {{ name }}
+    spec:
+      containers:
+        - name: {{ name }}
+          image: nginx:latest
+{% if envs %}          env:
+{% for env in envs %}            - name: {{ env.name }}
+              value: "{{ env.value }}"
+{% endfor %}{% endif %}
