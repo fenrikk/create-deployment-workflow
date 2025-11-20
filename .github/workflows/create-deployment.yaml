@@ -52,6 +52,8 @@ jobs:
 
       - name: Add Deployment YAML to summary
         run: |
-          echo '### Generated Deployment YAML' >> $GITHUB_STEP_SUMMARY
-          echo '\n' >> $GITHUB_STEP_SUMMARY
+          echo '## Generated Deployment YAML' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```yaml' >> $GITHUB_STEP_SUMMARY
           cat deployment.yaml >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
