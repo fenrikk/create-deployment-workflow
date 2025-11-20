@@ -1,0 +1,33 @@
+name: Generate Kubernetes Deployment YAML
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name of Deployment and container (required)'
+        required: true
+        default: ''
+      labels:
+        description: 'Comma-separated labels (e.g. app=myapp,env=prod). Leave empty to omit metadata.labels'
+        required: false
+        default: ''
+      replicas:
+        description: 'Number of replicas (defaults to 3)'
+        required: false
+        default: '3'
+      envs:
+        description: |
+          Environment variables. Options:
+          - Comma separeted: KEY=VALUE values.
+        required: false
+        default: ''
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Hello world
+        run: echo "Hello world"
