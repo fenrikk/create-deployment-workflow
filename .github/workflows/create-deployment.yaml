@@ -8,7 +8,7 @@ on:
         required: true
         default: ''
       labels:
-        description: 'Comma-separated labels (e.g. app=myapp,env=prod). Leave empty to omit metadata.labels'
+        description: 'Labels field'
         required: false
         default: ''
       replicas:
